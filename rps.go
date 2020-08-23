@@ -5,10 +5,11 @@ import (
 	"math/rand"
 	"time"
 	"strings"
+	"flag"
 )
 
-func Bar(games int){
-	fmt.Printf("########################### %d ###########################\n", games)
+func Bar(games, matches int){
+	fmt.Printf("########################### %d | %d ###########################\n", games, matches)
 }
 
 func Clear(){
@@ -86,6 +87,8 @@ func WhoWon(player, bot string) string{
 }
 
 func main(){
+	matches := flag.Int("matches", 5, "Number of matches!")
+	flag.Parse()
 	//seed random with a constantly-changing number
 	rand.Seed(time.Now().UnixNano())
 
@@ -97,24 +100,24 @@ func main(){
 	//var checkBot string
 	//var checkUser string
 	Clear()
-	Bar(game)
+	Bar(game, *matches)
 
 	fmt.Println("Please Enter your first name:\n")
 	fmt.Scanln(&name)
 	Sleep(2)
 	Clear()
-	for game < 4 {
+	for game < *matches {
 		var ranBotChoice int = rand.Intn(4)
 		//game
-		Bar(game)
+		Bar(game, *matches)
 		//fmt.Printf("%d", ranBotChoice) //debug
 		fmt.Printf("\t %s:%d \t  ||||| \t     Bot:%d\n\n", name, plrPoints, botPoints  )
 		fmt.Println("Choice (r) (p) (s)?")
 		fmt.Scanln(&userChoice)
 		checkUser := playerPlay(strings.ToLower(userChoice))
-		fmt.Printf("--> %s plays: %s\n", name, checkUser)
+		fmt.Printf("%s plays: %s --> \n", name, checkUser)
 		Sleep(2)
-		fmt.Printf("\t\t\t\t<-- Bot plays %s\n", botPlay(ranBotChoice))
+		fmt.Printf("\t\t\t\t<-- Bot plays: %s\n", botPlay(ranBotChoice))
 		Sleep(2)
 		checkBot := botPlay(ranBotChoice)
 
@@ -136,7 +139,7 @@ func main(){
 
 	Clear()
 	Sleep(2)
-	Bar(game)
+	Bar(game, *matches)
 	fmt.Printf("\nFINAL SCORES:\n\t\t\t%s:%d\n\t\t\t\t\t\tBot:%d\n\n Thanks For Playing\n", name, plrPoints, botPoints)
 	Sleep(2)
 }
