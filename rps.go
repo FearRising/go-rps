@@ -32,6 +32,8 @@ func playerPlay(choice string) string{
 
 	case "scissors","s":
 		choice = "scissors"
+	default:
+		choice = "rock"
 	}
 
 	return choice
@@ -111,7 +113,7 @@ func main(){
 		//game
 		Bar(game, *matches)
 		//fmt.Printf("%d", ranBotChoice) //debug
-		fmt.Printf("\t %s:%d \t  ||||| \t     Bot:%d\n\n", name, plrPoints, botPoints  )
+		fmt.Printf("\t %s:%d \t\t\t\tBot:%d\n\n", name, plrPoints, botPoints  )
 		fmt.Println("Choice (r) (p) (s)?")
 		fmt.Scanln(&userChoice)
 		checkUser := playerPlay(strings.ToLower(userChoice))
@@ -140,6 +142,6 @@ func main(){
 	Clear()
 	Sleep(2)
 	Bar(game, *matches)
-	fmt.Printf("\nFINAL SCORES:\n\t\t\t%s:%d\n\t\t\t\t\t\tBot:%d\n\n Thanks For Playing\n", name, plrPoints, botPoints)
+	fmt.Printf("\nFINAL SCORES:\n%s:%d\nBot:%d\n\nThanks For Playing\n", name, plrPoints, botPoints)
 	Sleep(2)
 }
